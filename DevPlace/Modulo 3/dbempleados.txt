@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `empleados_db`.`empleado` (
   `telefono` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `antiguedad` INT NOT NULL,
+  `salario` INT NOT NULL,
   `cargo_id` INT NOT NULL,
   `municipalidad_id` INT NOT NULL,
   PRIMARY KEY (`id`),

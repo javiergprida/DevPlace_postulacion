@@ -1,0 +1,26 @@
+INSERT INTO `empleados_db`.`cargo` (`cargo`) VALUES ('empleado');
+
+INSERT INTO `empleados_db`.`pais` (`pais`) VALUES ('argentina');
+INSERT INTO `empleados_db`.`pais` (`pais`) VALUES ('venezuela');
+
+INSERT INTO `empleados_db`.`municipalidad` (`municipalidad`, `pais_id`) VALUES ('buenos aires', '1');
+INSERT INTO `empleados_db`.`municipalidad` (`municipalidad`, `pais_id`) VALUES ('rosario', '1');
+INSERT INTO `empleados_db`.`municipalidad` (`municipalidad`, `pais_id`) VALUES ('cordoba', '1');
+INSERT INTO `empleados_db`.`municipalidad` (`municipalidad`, `pais_id`) VALUES ('aragua', '2');
+INSERT INTO `empleados_db`.`municipalidad` (`municipalidad`, `pais_id`) VALUES ('caracas', '2');
+INSERT INTO `empleados_db`.`municipalidad` (`municipalidad`, `pais_id`) VALUES ('valencia', '2');
+
+
+
+INSERT INTO `empleados_db`.`empleado` (`nombre`, `apellido`, `telefono`, `email`, `antiguedad`, `cargo_id`, `municipalidad_id`) 
+VALUES ('javier', 'gomez', '1132981751', 'jprida@correo.com', '10', '1', '1');
+INSERT INTO `empleados_db`.`empleado` (`nombre`, `apellido`, `telefono`, `email`, `antiguedad`, `salario`, `cargo_id`, `municipalidad_id`) 
+VALUES ('jose', 'perez', '1155778844', 'mail@mail.com', '5', '50000', '1', '1');
+INSERT INTO `empleados_db`.`empleado` (`nombre`, `apellido`, `telefono`, `email`, `antiguedad`, `salario`, `cargo_id`, `municipalidad_id`) 
+VALUES ('maria', 'lopez', '1155447788', 'mail.mail@correo.com', '15', '60000', '1', '1');
+INSERT INTO `empleados_db`.`empleado` (`nombre`, `apellido`, `telefono`, `email`, `antiguedad`, `salario`, `cargo_id`, `municipalidad_id`) 
+VALUES ('carlos', 'miranda', '11224455', 'correo@mail.com', '7', '120000', '1', '1');
+INSERT INTO `empleados_db`.`empleado` (`nombre`, `apellido`, `telefono`, `email`, `antiguedad`, `salario`, `cargo_id`, `municipalidad_id`) 
+VALUES ('lourdes', 'prida', '1199774455', 'lulu@correo.com', '12', '150000', '1', '1');
+
+	

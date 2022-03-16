@@ -8,7 +8,7 @@ public class Empleado {
     private String telefono;
     private String email;
     private int antiguedad;
-    private String salario;
+    private int salario;
     private String puesto;
     private String municipio;
     private String pais;
@@ -16,7 +16,7 @@ public class Empleado {
     public Empleado() {
     }
 
-    public Empleado(int id, String nombre, String apellido, String telefono, String email, int antiguedad,String salario ,String puesto, String municipio, String pais) {
+    public Empleado(int id, String nombre, String apellido, String telefono, String email, int antiguedad,int salario ,String puesto, String municipio, String pais) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -77,11 +77,11 @@ public class Empleado {
         this.antiguedad = antiguedad;
     }
 
-    public String getSalario() {
+    public int getSalario() {
         return salario;
     }
 
-    public void setSalario(String salario) {
+    public void setSalario(int salario) {
         this.salario = salario;
     }
 

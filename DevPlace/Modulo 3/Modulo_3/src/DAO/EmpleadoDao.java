@@ -21,11 +21,11 @@ public class EmpleadoDao implements OperacionesEmpleado<Empleado> {
             "VALUES (?, ?, ?, ?, ?, ?, ?,?)";
     private static final String SQL_UPDATE ="UPDATE empleado SET nombre=?, apellido=?,telefono=?,email=?,antiguedad=? WHERE=ID?)";
     private static final String SQL_DELETE ="DELETE FROM empleado WHERE=id?";
-    private static final String SQL_READ ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE=id?";
+    private static final String SQL_READ ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE id = ?";
     private static final String SQL_READALL ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id";
-    //private static final String SQL_READBYAGE ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.idWHERE antiguedad >=" + age + "  ";
-    //private static final String SQL_READBYSALARY ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE  salario >=" + salario + "";
-   // private static final String SQL_READBYAGEANDSALARY ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE antiguedad  >= "+ age + "  AND  salario >=" + salario + "";
+    //private static final String SQL_READBYAGE ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE e.antiguedad >= " + age ;
+    //private static final String SQL_READBYSALARY ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE  e.salario >= " + salario ;
+   // private static final String SQL_READBYAGEANDSALARY ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE e.antiguedad  >= "+ age + "  AND  e.salario >= " + salario ;
 
 
     @Override
@@ -65,7 +65,7 @@ public class EmpleadoDao implements OperacionesEmpleado<Empleado> {
                 empleado.setTelefono(rs.getString(4));
                 empleado.setEmail(rs.getString(5));
                 empleado.setAntiguedad(rs.getInt(6));
-                empleado.setSalario(rs.getString(7));
+                empleado.setSalario(rs.getInt(7));
                 empleado.setPuesto(rs.getString(8));
                 empleado.setMunicipio(rs.getString(9));
                 empleado.setPais(rs.getString(10));
@@ -81,18 +81,90 @@ public class EmpleadoDao implements OperacionesEmpleado<Empleado> {
     }
 
     @Override
-    public List<Empleado> readByAge(int age) {
-        return null;
+    public List<Empleado> readByAge(Integer age) {
+        List<Empleado> listaPorAntiguedad = new ArrayList<>();
+        String SQL_READBYAGE ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE e.antiguedad >= '" + age+"'" ;
+        try{
+            conn = Conexion.getConnection();
+            stmt =  conn.prepareStatement(SQL_READBYAGE);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                Empleado empleado = new Empleado();
+                empleado.setId(rs.getInt(1));
+                empleado.setNombre(rs.getString(2));
+                empleado.setApellido(rs.getString(3));
+                empleado.setTelefono(rs.getString(4));
+                empleado.setEmail(rs.getString(5));
+                empleado.setAntiguedad(rs.getInt(6));
+                empleado.setSalario(rs.getInt(7));
+                empleado.setPuesto(rs.getString(8));
+                empleado.setMunicipio(rs.getString(9));
+                empleado.setPais(rs.getString(10));
+                listaPorAntiguedad.add(empleado);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: "+ e);
+        }
+        return listaPorAntiguedad;
     }
 
     @Override
-    public List<Empleado> readBySalary(String salario) {
-        return null;
+    public List<Empleado> readBySalary(Integer salario) {
+        List<Empleado> listaPorSalario = new ArrayList<>();
+        String SQL_READBYSALARY ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE  e.salario >= '" + salario +"'" ;
+        try{
+            conn = Conexion.getConnection();
+            stmt =  conn.prepareStatement(SQL_READBYSALARY);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                Empleado empleado = new Empleado();
+                empleado.setId(rs.getInt(1));
+                empleado.setNombre(rs.getString(2));
+                empleado.setApellido(rs.getString(3));
+                empleado.setTelefono(rs.getString(4));
+                empleado.setEmail(rs.getString(5));
+                empleado.setAntiguedad(rs.getInt(6));
+                empleado.setSalario(rs.getInt(7));
+                empleado.setPuesto(rs.getString(8));
+                empleado.setMunicipio(rs.getString(9));
+                empleado.setPais(rs.getString(10));
+                listaPorSalario.add(empleado);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error: "+ e);
+        }
+        return listaPorSalario;
     }
 
     @Override
-    public List<Empleado> readByAgeAndSalary(int age, String salario) {
-        return null;
+    public List<Empleado> readByAgeAndSalary(Integer age, Integer salario) {
+            List<Empleado> listaPorDosValores = new ArrayList<>();
+        String SQL_READBYAGEANDSALARY ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE e.antiguedad  >= '"+ age + "'  AND  e.salario >= '" + salario+"' " ;
+        try{
+                conn = Conexion.getConnection();
+                stmt =  conn.prepareStatement(SQL_READBYAGEANDSALARY);
+                rs = stmt.executeQuery();
+                while(rs.next()){
+                    Empleado empleado = new Empleado();
+                    empleado.setId(rs.getInt(1));
+                    empleado.setNombre(rs.getString(2));
+                    empleado.setApellido(rs.getString(3));
+                    empleado.setTelefono(rs.getString(4));
+                    empleado.setEmail(rs.getString(5));
+                    empleado.setAntiguedad(rs.getInt(6));
+                    empleado.setSalario(rs.getInt(7));
+                    empleado.setPuesto(rs.getString(8));
+                    empleado.setMunicipio(rs.getString(9));
+                    empleado.setPais(rs.getString(10));
+                    listaPorDosValores.add(empleado);
+                }
+
+            } catch (SQLException e) {
+                System.out.println("Error: "+ e);
+            }
+            return listaPorDosValores;
     }
 
 }
