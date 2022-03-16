@@ -1,5 +1,6 @@
 package DAO;
 
+import CONEXION.Conexion;
 import DTO.Cargo;
 import DTO.Empleado;
 import INTERFACES.Operaciones;
@@ -7,6 +8,7 @@ import INTERFACES.Operaciones;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CargoDao implements Operaciones<Cargo> {
@@ -21,8 +23,19 @@ public class CargoDao implements Operaciones<Cargo> {
     private static final String SQL_READALL ="SELECT * FROM cargo";
 
     @Override
-    public int create(Cargo cargo) {
-        return 0;
+    public boolean create(Cargo cargo) {
+        try{
+            conn = Conexion.getConnection();
+            stmt =  conn.prepareStatement(SQL_CREATE);
+            stmt.setString(1,cargo.getNombre());
+            stmt.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Error: "+ ex);
+        }
+
+        return true;
     }
 
     @Override

@@ -12,13 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmpleadoDao implements OperacionesEmpleado<Empleado> {
+public class EmpleadoDao<creacion> implements OperacionesEmpleado<Empleado> {
 
     private ResultSet rs;
     private PreparedStatement stmt;
     private Connection conn;
-    private static final String SQL_CREATE =" INSERT INTO empleado (nombre,apellido,telefono,email,antiguedad,salario,cargo_id,municipalidad_id) \n" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+    private static final String SQL_CREATE =" INSERT INTO empleado (nombre,apellido,telefono,email,antiguedad,salario,cargo_id,municipalidad_id) "+ "VALUES (?, ?, ?, ?, ?, ?, ?,?)";
     private static final String SQL_UPDATE ="UPDATE empleado SET nombre=?, apellido=?,telefono=?,email=?,antiguedad=? WHERE=ID?)";
     private static final String SQL_DELETE ="DELETE FROM empleado WHERE=id?";
     private static final String SQL_READ ="SELECT e.id,e.nombre,e.apellido,e.telefono,e.email,e.antiguedad,e.salario, c.cargo, m.municipalidad,  p.pais FROM empleado e INNER JOIN cargo c ON e.cargo_id = c.id INNER JOIN municipalidad m ON e.municipalidad_id = m.id INNER JOIN pais p ON m.pais_id = p.id WHERE id = ?";
@@ -29,9 +28,30 @@ public class EmpleadoDao implements OperacionesEmpleado<Empleado> {
 
 
     @Override
-    public int create(Empleado empleado) {
-        return 0;
+    public boolean create(Empleado empleado) {
+
+        try{
+            conn = Conexion.getConnection();
+            stmt =  conn.prepareStatement(SQL_CREATE);
+            stmt.setString(1,empleado.getNombre());
+            stmt.setString(2,empleado.getApellido());
+            stmt.setString(3,empleado.getTelefono());
+            stmt.setString(4,empleado.getEmail());
+            stmt.setInt(5,empleado.getAntiguedad());
+            stmt.setInt(6,empleado.getSalario());
+            stmt.setInt(7,empleado.getIntPuesto());
+            stmt.setInt(8,empleado.getIntMunicipio());
+            stmt.executeUpdate();
+            return true;
+
+            } catch (SQLException ex) {
+            System.out.println("Error: "+ ex);
+        }
+
+        return true;
+
     }
+
 
     @Override
     public int update(Empleado empleado) {

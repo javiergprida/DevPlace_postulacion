@@ -13,6 +13,10 @@ public class Paises {
         this.nombre = nombre;
     }
 
+    public Paises(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getId() {
         return id;
     }

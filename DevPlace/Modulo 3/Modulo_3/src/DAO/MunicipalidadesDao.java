@@ -1,11 +1,13 @@
 package DAO;
 
+import CONEXION.Conexion;
 import DTO.Municipalidades;
 import INTERFACES.Operaciones;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class MunicipalidadesDao implements Operaciones<Municipalidades> {
@@ -20,8 +22,20 @@ public class MunicipalidadesDao implements Operaciones<Municipalidades> {
     private static final String SQL_READALL ="SELECT * FROM municipalidad";
 
     @Override
-    public int create(Municipalidades municipalidades) {
-        return 0;
+    public boolean create(Municipalidades municipalidades) {
+        try{
+            conn = Conexion.getConnection();
+            stmt =  conn.prepareStatement(SQL_CREATE);
+            stmt.setString(1,municipalidades.getNombre());
+            stmt.setInt(2,municipalidades.getId_pais());
+            stmt.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Error: "+ ex);
+        }
+
+        return true;
     }
 
     @Override

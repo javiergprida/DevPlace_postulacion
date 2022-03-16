@@ -8,6 +8,10 @@ public class Cargo {
     public Cargo() {
     }
 
+    public Cargo(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Cargo(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;

@@ -1,24 +1,110 @@
 package TEST;
 
 import CONEXION.Conexion;
+import DAO.CargoDao;
 import DAO.EmpleadoDao;
+import DAO.MunicipalidadesDao;
+import DAO.PaisesDao;
+import DTO.Cargo;
 import DTO.Empleado;
+import DTO.Municipalidades;
+import DTO.Paises;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class MainTest {
-    public static EmpleadoDao empleadoD = new EmpleadoDao();
+
+    static Scanner entrada = new Scanner(System.in);
+    private static EmpleadoDao empleadoD = new EmpleadoDao();
+    private static CargoDao cargoD = new CargoDao();
+    private static MunicipalidadesDao municipioD = new MunicipalidadesDao();
+    private static PaisesDao paisesD = new PaisesDao();
 
     public static void main(String[] args) {
-        //Connect();
-        //readAll();
-        //readByAge();
-        //readBySalary();
-        readBySalaryAndAge();
+        int opcion;
+        do{
 
+        System.out.println("ya creo la base de datos correctamente con el query en el archico 'dbempleados.txt' ? ");
+            System.out.println("1. si ya creo la base de datos correctamente");
+            System.out.println("2. si no creo la base de datos");
+            System.out.print("opcion: ");
+            opcion = entrada.nextInt();
+            switch(opcion){
+                case 1://ingresamos al menu
+                    menu();
+
+                    break;
+                case 2://cerramos el programa
+                    System.out.println("por favor cree la base de datos");
+                    break;
+                default: System.out.println("error, opcion incorrecta");
+                    break;
+
+
+            }
+
+        }while(opcion != 2);
     }
+
+
+
+
+
+    public static void menu(){
+        int opcion;
+        do{
+            System.out.println("\t.:MENU:.");
+            System.out.println("1. insertar datos en la base de datos");
+            System.out.println("2. leer todos los empleados");
+            System.out.println("3. filtrar empelados por antiguedad");
+            System.out.println("4. filtrar empelados por salario");
+            System.out.println("5. filtrar empelados por antiguedad y salario");
+            System.out.println("6. salir");
+            System.out.print("opcion: ");
+            opcion = entrada.nextInt();
+
+            switch(opcion){
+                case 1://insertar datos en la base de datos
+                    System.out.println("insertando datos en la base de datos");
+                    System.out.println("Insertando los cargos");
+                    createCargo();
+                    System.out.println("Insertando los paises");
+                    createPais();
+                    System.out.println("Insertando los municipalidades");
+                    createMunicipalidad();
+                    System.out.println("Insertando los empleados");
+                    createEmpleado();
+
+                    break;
+                case 2://leer todos los empleados
+                    System.out.println("datos de los empleados");
+                    readAll();
+                    break;
+                case 3://filtrar empelados por antiguedad
+                    System.out.println("datos filtrados  por antiguedad");
+                    readByAge();
+                    break;
+                case 4://filtrar empelados por salario
+                    System.out.println("datos filtrados  por salario");
+                    readBySalary();
+                    break;
+                case 5://filtrar empelados por antiguedad y salario
+                    System.out.println("datos filtrados  por salario y antiguedad");
+                    readBySalaryAndAge();
+                    break;
+                case 6://salir
+                    break;
+                default: System.out.println("error, opcion incorrecta");
+                    break;
+
+
+            }
+
+        }while(opcion != 6);
+    }
+
     public static void readAll(){
         List<Empleado> lista = new ArrayList<>();
         lista = empleadoD.readAll();
@@ -38,7 +124,6 @@ public class MainTest {
 
     public static void readByAge(){
         int antiguedad = 0;
-        Scanner entrada = new Scanner(System.in);
         System.out.println("ingrese  un numero para filtrar por antiguedad: ");
         antiguedad = entrada.nextInt();
         List<Empleado> listaPorAntiguedad = new ArrayList<>();
@@ -59,7 +144,6 @@ public class MainTest {
 
     public static void readBySalary(){
         int salario = 0;
-        Scanner entrada = new Scanner(System.in);
         System.out.println("ingrese  un numero para filtrar por salario: ");
         salario = entrada.nextInt();
         List<Empleado> listaPorSalario = new ArrayList<>();
@@ -82,10 +166,10 @@ public class MainTest {
     public static void readBySalaryAndAge(){
         int salario = 0;
         int antiguedad = 0;
-        Scanner entrada = new Scanner(System.in);
         System.out.println("ingrese  un numero para filtrar por salario: ");
         salario = entrada.nextInt();
-        System.out.println("ingrese  un numero para filtrar por antiguedad: ");
+        System.out.println("ingrese  un numero para filtrar por antiguedad: ");1
+
         antiguedad = entrada.nextInt();
         List<Empleado> listaPorDosValores = new ArrayList<>();
         listaPorDosValores = empleadoD.readByAgeAndSalary(antiguedad,salario);
@@ -111,5 +195,47 @@ public class MainTest {
             System.out.println("Fallo al conectarse a la BBDD");
         }
 
+    }
+
+    public static void createCargo(){
+        Cargo cargo1 = new Cargo("peon");
+        Cargo cargo2 = new Cargo("limpieza");
+        Cargo cargo3 = new Cargo("cajero");
+        Cargo cargo4 = new Cargo("pasillero");
+        Cargo cargo5 = new Cargo("encargado");
+        System.out.println(cargoD.create(cargo1));
+        System.out.println(cargoD.create(cargo2));
+        System.out.println(cargoD.create(cargo3));
+        System.out.println(cargoD.create(cargo4));
+        System.out.println(cargoD.create(cargo5));
+
+    }
+
+    public static void createPais(){
+
+        Paises pais1 = new Paises("mexico");
+        Paises pais2 = new Paises("peru");
+        System.out.println(paisesD.create(pais1));
+        System.out.println(paisesD.create(pais2));
+
+    }
+
+    public static void createMunicipalidad(){
+        Municipalidades minucipio1 = new Municipalidades("cdmx",2);
+        Municipalidades minucipio2 = new Municipalidades("lima",3);
+        System.out.println(municipioD.create(minucipio1));
+        System.out.println(municipioD.create(minucipio2));
+
+    }
+
+    public static void createEmpleado(){
+        Empleado empleadoCrear1 = new Empleado("javier","prida","1122554488","correo@mail.com", 10,70000,1,1);
+        Empleado empleadoCrear2 = new Empleado("jose", "perez", "1155778844", "mail@mail.com", 5, 50000, 1, 1);
+        Empleado empleadoCrear3 = new Empleado("maria","lopez","1122554488","correo@mail.com", 15,120000,1,2);
+        Empleado empleadoCrear4 = new Empleado("lourdes","prida","1122554488","correo@mail.com", 10,150000,1,2);
+        System.out.println(empleadoD.create(empleadoCrear1));
+        System.out.println(empleadoD.create(empleadoCrear2));
+        System.out.println(empleadoD.create(empleadoCrear3));
+        System.out.println(empleadoD.create(empleadoCrear4));
     }
 }

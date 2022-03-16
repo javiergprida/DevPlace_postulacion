@@ -12,11 +12,26 @@ public class Empleado {
     private String puesto;
     private String municipio;
     private String pais;
+    private int intPuesto;
+    private int intMunicipio;
+    private int intPais;
 
     public Empleado() {
     }
 
-    public Empleado(int id, String nombre, String apellido, String telefono, String email, int antiguedad,int salario ,String puesto, String municipio, String pais) {
+    public Empleado( String nombre, String apellido, String telefono, String email, int antiguedad, int salario, int intPuesto, int intMunicipio) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.email = email;
+        this.antiguedad = antiguedad;
+        this.salario = salario;
+        this.intPuesto = intPuesto;
+        this.intMunicipio = intMunicipio;
+
+    }
+
+    public Empleado(int id, String nombre, String apellido, String telefono, String email, int antiguedad, int salario, String puesto, String municipio, String pais, int intPuesto, int intMunicipio, int intPais) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -27,7 +42,12 @@ public class Empleado {
         this.puesto = puesto;
         this.municipio = municipio;
         this.pais = pais;
+        this.intPuesto = intPuesto;
+        this.intMunicipio = intMunicipio;
+        this.intPais = intPais;
     }
+
+
 
     public int getId() {
         return id;
@@ -109,6 +129,30 @@ public class Empleado {
         this.pais = pais;
     }
 
+    public int getIntPuesto() {
+        return intPuesto;
+    }
+
+    public void setIntPuesto(int intPuesto) {
+        this.intPuesto = intPuesto;
+    }
+
+    public int getIntMunicipio() {
+        return intMunicipio;
+    }
+
+    public void setIntMunicipio(int intMunicipio) {
+        this.intMunicipio = intMunicipio;
+    }
+
+    public int getIntPais() {
+        return intPais;
+    }
+
+    public void setIntPais(int intPais) {
+        this.intPais = intPais;
+    }
+
     @Override
     public String toString() {
         return "Empleado{" +
@@ -118,10 +162,13 @@ public class Empleado {
                 ", telefono='" + telefono + '\'' +
                 ", email='" + email + '\'' +
                 ", antiguedad=" + antiguedad +
-                ", salario='" + salario + '\'' +
-                ", puesto=" + puesto +
-                ", municipio=" + municipio +
-                ", pais=" + pais +
+                ", salario=" + salario +
+                ", puesto='" + puesto + '\'' +
+                ", municipio='" + municipio + '\'' +
+                ", pais='" + pais + '\'' +
+                ", intPuesto=" + intPuesto +
+                ", intMunicipio=" + intMunicipio +
+                ", intPais=" + intPais +
                 '}';
     }
 }
