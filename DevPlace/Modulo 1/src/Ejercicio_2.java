@@ -11,14 +11,14 @@ import java.util.Scanner;
 
 public class Ejercicio_2 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner entrada = new Scanner(System.in);
         int password1, password2, password3;
         System.out.print("Introduzca primera Contraseña: ");
-        password1 = sc.nextInt();
+        password1 = entrada.nextInt();
         System.out.print("Introduzca nuevamente la Contraseña: ");
-        password2 = sc.nextInt();
+        password2 = entrada.nextInt();
         System.out.print("Introduzca por ultima vez la Contraseña: ");
-        password3 = sc.nextInt();
+        password3 = entrada.nextInt();
         if (password1 == password2) {
             if (password2 == password3) {
                 if (password3 == password1) {

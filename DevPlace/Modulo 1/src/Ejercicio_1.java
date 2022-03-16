@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Ejercicio_1 {
 
     public static void main(String[] args) {
-        Scanner obtenerNumero = new Scanner(System.in);
+        Scanner entrada = new Scanner(System.in);
 
         int contador;
         int I;
@@ -18,7 +18,7 @@ public class Ejercicio_1 {
 
         System.out.println("Ingresa un numero: ");
 
-        numero = obtenerNumero.nextInt();
+        numero = entrada.nextInt();
 
         contador = 0;
 
