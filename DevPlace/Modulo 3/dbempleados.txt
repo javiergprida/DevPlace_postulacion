@@ -1,0 +1,61 @@
+
+-- Schema empleados_db
+
+CREATE DATABASE IF NOT EXISTS `empleados_db`;
+USE `empleados_db` ;
+
+
+CREATE TABLE IF NOT EXISTS `empleados_db`.`cargo` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `cargo` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `empleados_db`.`pais` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `pais` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `empleados_db`.`municipalidad` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `municipalidad` VARCHAR(45) NOT NULL,
+  `pais_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_municipalidad_pais_idx` (`pais_id` ASC) VISIBLE,
+  CONSTRAINT `fk_municipalidad_pais`
+    FOREIGN KEY (`pais_id`)
+    REFERENCES `empleados_db`.`pais` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `empleados_db`.`empleado` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellido` VARCHAR(45) NOT NULL,
+  `telefono` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `antiguedad` INT NOT NULL,
+  `cargo_id` INT NOT NULL,
+  `municipalidad_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_empleado_cargo1_idx` (`cargo_id` ASC) VISIBLE,
+  INDEX `fk_empleado_municipalidad1_idx` (`municipalidad_id` ASC) VISIBLE,
+  CONSTRAINT `fk_empleado_cargo1`
+    FOREIGN KEY (`cargo_id`)
+    REFERENCES `empleados_db`.`cargo` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_empleado_municipalidad1`
+    FOREIGN KEY (`municipalidad_id`)
+    REFERENCES `empleados_db`.`municipalidad` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
