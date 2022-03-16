@@ -1,3 +1,5 @@
+package DTO;
+
 public class Municipalidades {
 
     private int id;

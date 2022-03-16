@@ -1,12 +1,14 @@
-public class Cargo {
+package DTO;
+
+public class Paises {
 
     private int id;
     private String nombre;
 
-    public Cargo() {
+    public Paises() {
     }
 
-    public Cargo(int id, String nombre) {
+    public Paises(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }

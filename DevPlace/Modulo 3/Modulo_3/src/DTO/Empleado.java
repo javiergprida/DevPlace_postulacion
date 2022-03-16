@@ -1,3 +1,9 @@
+package DTO;
+
+import DTO.Cargo;
+import DTO.Municipalidades;
+import DTO.Paises;
+
 public class Empleado {
 
     private int id;
@@ -99,7 +105,7 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" +
+        return "DTO.Empleado{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
